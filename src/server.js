@@ -8,11 +8,20 @@ const knex = require('knex')
 const db = knex({
     client: 'pg',
     connection: {
-      host : '127.0.0.1',
-      port : 3306,
-      user : 'Andrea',
-      password : 'your_database_password',
-      database : 'smart-brain'
+      client:'pg',  
+      connectionString : process.env.DATABASE_URL,
+      ssl: true,
+    }
+});
+
+const db= knex({
+    client: 'pg',
+    connection: {
+        host: '127.0.0.1',
+        port: '5400',
+        user: 'postgres',
+        password: 'postgres',
+        database: 'smart-brain'
     }
 });
 
@@ -85,10 +94,6 @@ app.get('/profile/:id', (req, res) => {
     })
     .catch(err => res.status(400).json('error getting user'))
 })
-//     if(!found) {
-//         res.status(400).json('not found');
-//     }
-// })
 
 app.put('/image', (req, res) => {
     const { id } = req.body;

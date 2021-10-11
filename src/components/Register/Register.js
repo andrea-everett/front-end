@@ -23,7 +23,7 @@ class Register extends React.Component {
   }
 
 onSubmitSignIn = () => {
-  fetch('http://localhost:3000/register', {
+  fetch('https://peaceful-wave-79106.herokuapp.com/register', {
     method: 'post',
     headers: {'Content-Type' : 'application/json'},
     body: JSON.stringify({
@@ -54,7 +54,7 @@ onSubmitSignIn = () => {
           type="text" 
           name="name"  
           id="name"
-          onChnage={this.onNameChange} 
+          onChange={this.onNameChange} 
           />
           </div>
         <div className="mt3">
