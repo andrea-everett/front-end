@@ -1,3 +1,5 @@
+// import { useState } from 'react';
+// import { createRoot } from 'react-dom/client';
 import React, { Component } from 'react';
 // import Particles from "react-tsparticles";
 // import{ loadFull } from "tsparticles";
@@ -9,7 +11,6 @@ import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import './App.css';
-
 
 // const particlesLoaded = (container) => {
 //   console.log(container);
@@ -92,7 +93,6 @@ import './App.css';
 //     }}
 //   />
 // );
-
 
   const initialState = {
     input: '',
@@ -194,7 +194,7 @@ onInputChange = (event) => {
 
   onRouteChange = (route) => {
     if (route === 'signout') {
-      this.setState(initialState);
+      this.setState(initialState)
     } else if (route === 'home') {
       this.setState({isSignedIn:true});
     }

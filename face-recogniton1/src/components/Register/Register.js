@@ -23,8 +23,9 @@ class Register extends React.Component {
   }
 
       onSubmitSignIn = () => {
+              console.log("state", this.state)
               fetch('http://localhost:3000/register', {
-                method: 'post',
+                method: 'POST',
                 headers: {'Content-Type' : 'application/json'},
                 body: JSON.stringify({
                   email: this.state.email,
@@ -32,10 +33,11 @@ class Register extends React.Component {
                   name: this.state.name
                 })
        })
-          .then(response => response.json())
+       .then(response => console.log(response, "resp"))
+          // .then(response => response.json())
           .then(user => {
-              if (user) {
-                    this.props.loadUser(user)
+              if (user.id) {
+                    this.props.loadUser(user);
                     this.props.onRouteChange('home');
                 }
           })
@@ -83,7 +85,7 @@ class Register extends React.Component {
                             onClick={this.onSubmitSignIn}
                             className="b ph3 pv2 input-rest ba b--black b-transparent grow pointer f6 dib"
                             type="submit"
-                            value="Register"
+                            value="register"
                       />
                        </div>
                       </div>
