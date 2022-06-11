@@ -128,13 +128,13 @@ import './App.css';
   }
 
   setUser = (data) => {
-  this.setState({user: {
-    id: data.id,
-    name: data.name,
-    email: data.email,
-    entries: data.entries,
-    joined: data.joined
-  }})
+    this.setState({user: {
+      id: data.id,
+      name: data.name,
+      email: data.email,
+      entries: data.entries,
+      joined: data.joined
+    }})
   //develop local storage later
   //localStorage.setItem('AndreaAppUser', JSON.stringify(data))
 }
@@ -163,7 +163,7 @@ onInputChange = (event) => {
 
   onButtonSubmit = () => {
     this.setState({imageUrl: this.state.input});
-        fetch('https://calm-ridge-42223.herokuapp.com/imageurl', {
+        fetch('http://localhost:3000/imageurl', {
           method: 'post',
           headers: {'Content-Type' : 'application/json'},
           body: JSON.stringify({
@@ -174,7 +174,7 @@ onInputChange = (event) => {
         .then(response => {
             console.log('response', response);
             if (response) {
-              fetch('https://calm-ridge-42223.herokuapp.com/image', {
+              fetch('http://localhost:3000/image', {
                 method: 'put',
                 headers: {'Content-Type': "application/json"},
                 body: JSON.stringify({
@@ -219,9 +219,9 @@ onInputChange = (event) => {
             <FaceRecognition box={box} imageUrl={imageUrl} />
           </div>
           : (
-            route === 'Signin'
-            ? <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
-            : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+            route === 'signin'
+            ? <Signin loadUser={this.setUser} onRouteChange={this.onRouteChange}/>
+            : <Register loadUser={this.setUser} onRouteChange={this.onRouteChange}/>
           ) 
         }
     </div>

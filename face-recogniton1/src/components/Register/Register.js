@@ -22,24 +22,28 @@ class Register extends React.Component {
     this.setState({password: event.target.value})
   }
 
-      onSubmitSignIn = () => {
-              fetch('https://calm-ridge-42223.herokuapp.com/register', {
-                method: 'POST',
-                headers: {'Content-Type' : 'application/json'},
-                body: JSON.stringify({
-                  email: this.state.email,
-                  password: this.state.password,
-                  name: this.state.name
-                })
-       })
-          .then(response => response.json())
-          .then(user => {
-              if (user.id) {
-                    this.props.loadUser(user);
-                    this.props.onRouteChange('home');
-                }
-          })
-      }
+  onSubmitSignIn = () => {
+    console.log('state', this.state)
+    fetch('http://localhost:3000/register', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password,
+        name: this.state.name
+      })
+    })
+    .then(response => response.json())
+    .then(user => {
+        console.log(user, 'user in Register')
+        if (user.id) {
+          console.log(this.props)
+            this.props.loadUser(user);
+            this.props.onRouteChange('home');
+        }
+    })
+    .catch(resp => console.log('resp failed', resp))
+  }
   render() {
     return (
        <article className="br2 ba dark-gray b--black-10 mv6 w-100 w-50-m w-25-1 center">
@@ -50,12 +54,12 @@ class Register extends React.Component {
               <div className="mt3">
                     <label className="db fw6 lh-copy f6" forhtml="name">Name</label>
                     <input 
-                              className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
-                              type="text" 
-                              name="name"  
-                              id="name"
-                              onChange={this.onNameChange} 
-                      />
+                      className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
+                      type="text" 
+                      name="name"  
+                      id="name"
+                      onChange={this.onNameChange} 
+                    />
           </div>
         <div className="mt3">
               <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
@@ -79,13 +83,13 @@ class Register extends React.Component {
           </div>
       </fieldset>
                     <div className="">
-                            <input
-                            onClick={this.onSubmitSignIn}
-                            className="b ph3 pv2 input-rest ba b--black b-transparent grow pointer f6 dib"
-                            type="submit"
-                            value="register"
-                      />
-                       </div>
+                        <input
+                          onClick={this.onSubmitSignIn}
+                          className="b ph3 pv2 input-rest ba b--black b-transparent grow pointer f6 dib"
+                          type="submit"
+                          value="register"
+                        />
+                      </div>
                       </div>
                  </main>
               </article>
