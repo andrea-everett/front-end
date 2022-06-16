@@ -9,6 +9,9 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import './App.css';
 
+const url = "https://samples.clarifai.com/metro-north.jpg";
+
+
 const particlesOptions = {
   fpsLimit: 60,
   particles: {
@@ -112,34 +115,35 @@ onInputChange = (event) => {
 onEnter = (event) => {
   if (event.key === 'Enter') {
     this.onButtonSubmit();
-    console.log('working')
   }
 }
 
 onButtonSubmit = () => {
+  console.log(this.state.input, "input")
   const raw = JSON.stringify({
-    user_app_id : {
-      user_id: "sdpibbilqljk",
-      app_id: "smart"
+    "user_app_id": {
+      "user_id": "sdpibbilqljk",
+      "app_id": "smart"
     },
-    inputs: [
+    "inputs": [
       {
-        data: {
-          image: {
-            url: this.state.input
-          },
-        },
-      },
-    ],
+        "data": {
+          "image": {
+            "url": url
+          }
+        }
+      }
+    ]
   });
 
+  console.log('raw', JSON.parse(raw))
   fetch(
-     "https://api.clarifai.com/v2/models/f76196b43bbd45c99b4f3cd8e8b40a8a/outputs",
+     "https://api.clarifai.com/v2/models/45fb9a671625463fa646c3523a3087d5/outputs",
      {
        method: "POST",
        headers: {
          Accept: "application/json",
-         Authorization: " Key 48f2e48bf17944c79985107a2e101aa2",
+         Authorization: "Key 48f2e48bf17944c79985107a2e101aa2",
        },
        body: raw,
      }
@@ -154,7 +158,8 @@ onButtonSubmit = () => {
           id: this.state.user.id
         })
       })
-      .then(response => response.json())
+      .then(resp => console.log('resp', resp))
+      // .then(response => response.json())
       .then(count => {
         this.setState(Object.assign(this.state.user, {entries: count}));
        });
