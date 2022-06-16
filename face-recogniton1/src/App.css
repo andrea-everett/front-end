@@ -7,7 +7,7 @@
   justify-content: center;
 }
 
-#tsparticles {
+.particles {
   position: fixed;
   top: 0;
   right: 0;
