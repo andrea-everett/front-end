@@ -119,7 +119,7 @@ class App extends Component {
   }
 
   onButtonSubmit = () => {
-    this.setState({ image: this.state.input });
+    // this.setState({ image: this.state.input });
     const raw = JSON.stringify({
       user_app_id: {
         user_id: "sdpibbilqljk",
@@ -137,7 +137,7 @@ class App extends Component {
     });
 
     fetch(
-      "https://api.clarifai.com/v2/models/6dc7e46bc9124c5c8824be4822abe105/outputs",
+      "https://api.clarifai.com/v2/models/face-detection/versions/6dc7e46bc9124c5c8824be4822abe105/outputs",
       {
         method: "POST",
         headers: {
@@ -148,27 +148,30 @@ class App extends Component {
       }
     )
     .then((response) => response.text())
-    .then((response) => {
-      if (response){
-        fetch('https://localhost:3000/image', {
-          method: 'put',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({
-            id: this.state.user.id
-          })
-        })
-        .then(response => response.json())
-        .then(count => {
-          this.setState(Object.assign(this.state.user, {entries: count}));
-        });
-      }
-      this.displayFaceBox(this.calculateFaceLocation(response));
-    })
+    .then(result => this.displayFaceBox(this.calculateFaceLocation(result)))
     .catch((error) => console.log('error', error));
-      // .then((response) => response.text())
-      // .then((result) => this.displayFaceBox(this.calculateFaceLocation(result)))
-      // .catch((error) => console.log("error", error));
   };
+  //   .then((response) => {
+  //     if (response){
+  //       fetch('https://localhost:3000/image', {
+  //         method: 'put',
+  //         headers: {'Content-Type': 'application/json'},
+  //         body: JSON.stringify({
+  //           id: this.state.user.id
+  //         })
+  //       })
+  //       .then(response => response.json())
+  //       .then(count => {
+  //         this.setState(Object.assign(this.state.user, {entries: count}));
+  //       });
+  //     }
+  //     this.displayFaceBox(this.calculateFaceLocation(response));
+  //   })
+  //   .catch((error) => console.log('error', error));
+  //     // .then((response) => response.text())
+  //     // .then((result) => this.displayFaceBox(this.calculateFaceLocation(result)))
+  //     // .catch((error) => console.log("error", error));
+  // };
 
   onRouteChange = (route) => {
     if(route === 'signout'){
