@@ -111,12 +111,12 @@ class App extends Component {
     this.setState({ input: event.target.value });
   };
 
-  onEnter = (event) => {
-    if (event.key === 'Enter') {
-      this.onButtonSubmit();
-      console.log('working')
-    }
-  }
+  // onEnter = (event) => {
+  //   if (event.key === 'Enter') {
+  //     this.onButtonSubmit();
+  //     console.log('working')
+  //   }
+  // }
 
   onButtonSubmit = () => {
     // this.setState({ image: this.state.input });
@@ -148,30 +148,25 @@ class App extends Component {
       }
     )
     .then((response) => response.text())
-    .then(result => this.displayFaceBox(this.calculateFaceLocation(result)))
-    .catch((error) => console.log('error', error));
+    .then(response => {
+      if (response) {
+        fetch('https://localhost:3000/image', {
+          method: 'put',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            id: this.state.user.id
+          })
+        })
+        .then(response => {return response.json()})
+        .then(count => {
+          this.setState(Object.assign(this.state.user, {entries: count}));
+        });
+      }
+      this.displayFaceBox(this.calculateFaceLocation(response));
+    })
+    .catch(error => console.log("error", error));
   };
-  //   .then((response) => {
-  //     if (response){
-  //       fetch('https://localhost:3000/image', {
-  //         method: 'put',
-  //         headers: {'Content-Type': 'application/json'},
-  //         body: JSON.stringify({
-  //           id: this.state.user.id
-  //         })
-  //       })
-  //       .then(response => response.json())
-  //       .then(count => {
-  //         this.setState(Object.assign(this.state.user, {entries: count}));
-  //       });
-  //     }
-  //     this.displayFaceBox(this.calculateFaceLocation(response));
-  //   })
-  //   .catch((error) => console.log('error', error));
-  //     // .then((response) => response.text())
-  //     // .then((result) => this.displayFaceBox(this.calculateFaceLocation(result)))
-  //     // .catch((error) => console.log("error", error));
-  // };
+
 
   onRouteChange = (route) => {
     if(route === 'signout'){
