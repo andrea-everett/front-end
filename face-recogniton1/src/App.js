@@ -150,7 +150,7 @@ class App extends Component {
     .then((response) => response.text())
     .then(response => {
       if (response) {
-        fetch('https://localhost:3000/image', {
+        fetch('http://localhost:3000/image/', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
@@ -158,6 +158,7 @@ class App extends Component {
           })
         })
         .then(response => {return response.json()})
+        .catch(err => console.log(err))
         .then(count => {
           this.setState(Object.assign(this.state.user, {entries: count}));
         });
