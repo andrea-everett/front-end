@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import Particles from "react-tsparticles";
-// import Clarifai from "clarifai";
 import Navigation from "./components/Navigation/Navigation";
 import Logo from "./components/Logo/Logo";
 import Rank from "./components/Rank/Rank";
@@ -9,51 +7,6 @@ import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import SignIn from "./components/Signin/Signin";
 import Register from "./components/Register/Register";
 import "./App.css";
-
-const particlesOptions = {
-  fpsLimit: 60,
-  particles: {
-    color: {
-      value: "#ffffff",
-    },
-    links: {
-      color: "#ffffff",
-      distance: 150,
-      enable: true,
-      opacity: 0.5,
-      width: 1,
-    },
-    collisions: {
-      enable: true,
-    },
-    move: {
-      direction: "none",
-      enable: true,
-      outMode: "bounce",
-      random: false,
-      speed: 2,
-      straight: false,
-    },
-    number: {
-      density: {
-        enable: true,
-        area: 800,
-      },
-      value: 100,
-    },
-    opacity: {
-      value: 0.5,
-    },
-    shape: {
-      type: "circle",
-    },
-    size: {
-      random: true,
-      value: 5,
-    },
-  },
-  detectRetina: true,
-};
 
 const initialState = {
   input: "",
@@ -150,7 +103,7 @@ class App extends Component {
     .then((response) => response.text())
     .then(response => {
       if (response) {
-        fetch('http://localhost:3000/image/', {
+        fetch('https://git.heroku.com/calm-ridge-42223.git/image/', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
@@ -182,7 +135,6 @@ class App extends Component {
     const { name, entries } = this.state.user;
     return (
       <div className="App">
-        <Particles className="particles" params={particlesOptions} />
         <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange} />
         {this.state.route === 'home'
          ? 
