@@ -103,7 +103,7 @@ class App extends Component {
     .then((response) => response.text())
     .then(response => {
       if (response) {
-        fetch('https://git.heroku.com/calm-ridge-42223.git/image/', {
+        fetch('http://localhost:3000/image/', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
