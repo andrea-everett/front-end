@@ -103,7 +103,7 @@ class App extends Component {
     .then((response) => response.text())
     .then(response => {
       if (response) {
-        fetch('http://localhost:3000/image/', {
+        fetch('https://git.heroku.com/secret-scrubland-34447.git/image/', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
