@@ -103,7 +103,7 @@ class App extends Component {
     .then((response) => response.text())
     .then(response => {
       if (response) {
-        fetch('https://secret-scrubland-34447.herokuapp.com/image/', {
+        fetch('https://friendly-leaf-56070.heroku.com/image/', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
